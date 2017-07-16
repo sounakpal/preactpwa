@@ -12,7 +12,7 @@ before_script:
   - npm install
 
 script:
-  - preact build
+  - preact build --prerenderUrls fragments.json
 
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN --non-interactive
