@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import Header from './header';
+import Pushbutton from './push-btn';
 import Profile from '../routes/profile';
 import List from '../routes/list';
 
@@ -53,6 +54,7 @@ export default class App extends Component {
 					<Profile path="/profile/:user" items={items} />
 					<List path="/" items={items}/>
 				</Router>
+				<Pushbutton />
 			</div>
 		);
 	}
