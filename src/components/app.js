@@ -47,7 +47,10 @@ export default class App extends Component {
     handleRoute = e => {
 
         this.currentUrl = e.url;
-        this.handleBackFunctionality(e);
+        //only for mobiles
+        if (typeof window.orientation !== 'undefined'){
+            this.handleBackFunctionality(e);
+        }
         this.setState({'name': e.url.indexOf('profile') > 0 ? 'Profile page' : 'List Page'})
         
     }
