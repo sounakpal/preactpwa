@@ -16,7 +16,7 @@ export default class Pushbutton extends Component {
         let self = this;
         if ('serviceWorker' in navigator && 'PushManager' in window) {
 
-            navigator.serviceWorker.register('sk.js')
+            navigator.serviceWorker.register('sw.js')
                 .then(function(swReg) {
 
                     swRegistration = swReg;
@@ -32,11 +32,13 @@ export default class Pushbutton extends Component {
     startPush(swRegistration) {
         var self = this;
 
+                self.allowUserForPush();
         self.textbutton.addEventListener('click', function() {
             self.textbutton.disabled = true;
             if (self.state.isSubscribed) {
                 // TODO: Unsubscribe user
-                alert('Nothing Happens!!')
+                 self.unsubscribeUser();
+                //alert('Nothing Happens!!')
             } else {
                 self.allowUserForPush();
             }
@@ -97,6 +99,25 @@ export default class Pushbutton extends Component {
                 self.setState({'textContent': 'Push disabled'})
 
             });
+    }
+    unsubscribeUser() {
+            let self = this;
+          swRegistration.pushManager.getSubscription()
+          .then(function(subscription) {
+            if (subscription) {
+              return subscription.unsubscribe();
+            }
+          })
+          .catch(function(error) {
+            console.log('Error unsubscribing', error);
+          })
+          .then(function() {
+            //updateSubscriptionOnServer(null);
+
+            console.log('User is unsubscribed.');
+             self.setState({'isSubscribed':false});
+            self.modifyBtn();
+          });
     }
     render() {
         return ( < button id = "button"
