@@ -8,6 +8,10 @@ export default class Profile extends Component {
 		const OBJ = this.props.items.find((value, index) => {
 		   return value.name == user;
 		});
+
+		if(!OBJ){
+			return;
+		}
 		return (
 			<div class={style.profile}>
 				
